@@ -1,5 +1,7 @@
 # 🌻 Farm Ecosystem
 
+**▶ Play it live: https://farm-ecosystem.vercel.app**
+
 An educational browser game for children aged 7–12. Players run a small farm and learn how
 **sunlight, water, soil, plants, bees, pests, predators, decomposers and animals** depend on each other.
 
@@ -22,6 +24,15 @@ npm test           # run the game-rule unit tests (Vitest)
 npm run build      # production build into dist/
 npm run preview    # serve the production build
 ```
+
+## Deployment
+
+The site is hosted on **Vercel** and connected to this GitHub repository:
+
+- Every push to `main` triggers a **production** deployment at https://farm-ecosystem.vercel.app.
+- Pushes to other branches and pull requests get their own **preview** URL.
+- Build settings live in [`vercel.json`](vercel.json): `npm ci`, then `npm test && npm run build`, publishing `dist/`. If a test fails, the deploy stops and the live site stays on the last good version.
+- Manual deploy from your machine (optional): `vercel deploy --prod`.
 
 ## How to play
 
