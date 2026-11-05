@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#7cc4f0" />
+    <meta name="description" content="Farm Ecosystem – a playful educational game where kids learn how sun, water, soil, bees, bugs, worms and animals work together on a farm." />
+    <title>Farm Ecosystem</title>
+    <script>
+      // Apply the saved language before the page paints (avoids a left-to-right flash in Arabic).
+      try {
+        var lang = localStorage.getItem('farm-ecosystem-lang');
+        if (lang === 'fr' || lang === 'ar') {
+          document.documentElement.lang = lang;
+          document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        }
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>Farm Ecosystem needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

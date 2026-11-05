@@ -1,0 +1,17 @@
+{
+  "name": "farm-ecosystem",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Farm Ecosystem – an educational browser game for kids aged 7-12",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vite": "^6.4.5",
+    "vitest": "^3.2.7"
+  }
+}

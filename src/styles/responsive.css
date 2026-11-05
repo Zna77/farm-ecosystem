@@ -1,0 +1,78 @@
+/* ── Tablet: sidebar moves below the scene ─────────────────── */
+@media (max-width: 1100px) {
+  .brand h1 { font-size: 22px; }
+  .chip .xp { min-width: 70px; }
+  .menu-btn { width: 54px; }
+}
+
+@media (max-width: 960px), (max-height: 620px) and (max-width: 1100px) {
+  body { overflow: auto; }
+  #app { height: auto; min-height: 100dvh; grid-template-rows: auto auto auto; }
+  .hud { flex-wrap: wrap; justify-content: space-between; }
+  .stats { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
+  .layout { grid-template-columns: 1fr; padding: 0 8px calc(var(--toolbar-h) + 10px); }
+  .scene { width: 100%; }
+  .side { overflow: visible; display: grid; grid-template-columns: 1fr 1fr; padding: 4px 0; }
+  .side .mascot { grid-column: 1 / -1; }
+  .toolbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    background: linear-gradient(180deg, transparent, rgba(185, 224, 138, .9) 40%);
+  }
+  .toasts { top: 10px; }
+}
+
+/* ── Phones: portrait farm layout ──────────────────────────── */
+@media (max-width: 640px) {
+  :root { --toolbar-h: 118px; }
+  .hud { padding: 8px 10px; gap: 8px; }
+  .brand .logo { font-size: 30px; }
+  .brand h1 { display: none; }
+  .stats { display: grid; grid-template-columns: auto 1fr; overflow: visible; gap: 6px; }
+  .stats .chip { min-width: 0; }
+  .stats .chip.health, .stats .chip.weather { grid-column: span 1; }
+  .menu { gap: 4px; }
+  .menu-btn { width: 46px; height: 46px; border-radius: 13px; }
+  .menu-btn span { font-size: 19px; }
+  .menu-btn em { display: none; }
+  .chip { padding: 4px 8px; flex-shrink: 0; }
+  .chip .ico { font-size: 20px; }
+  .chip b { font-size: 16px; }
+  .chip .xp { min-width: 64px; }
+  .side { grid-template-columns: 1fr; }
+  .scene-wrap { padding: 6px 0; }
+
+  /* Taller scene with objects re-arranged around the field */
+  .scene { aspect-ratio: 4 / 5; border-radius: 20px; }
+  .barn { left: 2%; top: 9%; width: 32%; }
+  .tree.t1 { left: 36%; top: 12%; width: 13%; }
+  .tree.t2 { display: none; }
+  .hives { left: 56%; top: 13%; width: 40%; }
+  .pen { left: 1%; top: 33%; width: 40%; height: 13%; }
+  .compost-bin { left: 43%; top: 34%; width: 20%; }
+  .pond { left: 66%; top: 33%; width: 32%; }
+  .scarecrow { display: none; }
+  .pipe { left: 80%; top: 46%; width: 1.5%; height: 4%; }
+  .field { left: 3%; top: 50%; width: 94%; height: 48%; gap: 2.5%; padding: 2.5%; }
+  .sun { width: 13%; }
+  .cloud { width: 22%; }
+  .label { font-size: 10px; padding: 0 6px; }
+  .animal { font-size: 8cqw; }
+  .animal.cow { font-size: 9.5cqw; }
+  .plot .badges { font-size: 3.6cqw; }
+  .bee { font-size: 4cqw; }
+  .float { font-size: 4.2cqw; }
+
+  .tools { gap: 4px; padding: 5px; border-radius: 20px; }
+  .tool { width: 44px; height: 52px; border-radius: 13px; }
+  .tool .t-ico { font-size: 21px; }
+  .tool .t-label { font-size: 9.5px; }
+  .tool.active { transform: translateY(-2px); }
+  .seed-tray.open { height: 46px; }
+
+  .modal-backdrop { padding: 8px; }
+  .modal { max-height: 94dvh; border-radius: 20px; }
+  .modal-head h2 { font-size: 18px; }
+  .question { font-size: 20px; }
+  .answer { font-size: 16px; }
+  .speech-text { font-size: 14px; }
+}

@@ -1,0 +1,7 @@
+/* Farm Ecosystem – styles entry. Each file covers one part of the UI. */
+@import './base.css';
+@import './scene.css';
+@import './panels.css';
+@import './modals.css';
+@import './responsive.css';
+@import './i18n.css';
