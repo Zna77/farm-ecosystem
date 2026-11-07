@@ -21,6 +21,7 @@ import { buildHud, updateHud, buildToolbar, updateToolbar, TOOLS, toolHint, togg
 import { buildSidebar, updateSidebar, say, nextMessage, clearSpeech } from './ui/sidebar.js';
 import * as modals from './ui/modals.js';
 import { play, setSoundEnabled } from './ui/sound.js';
+import { installEmojiFallbacks } from './ui/emoji.js';
 
 // ── The game object: state + UI choices ─────────────────────
 const game = {
@@ -55,6 +56,7 @@ function buildUI() {
 }
 
 applyDocumentLanguage();
+installEmojiFallbacks(); // swaps emoji that older phones can't draw (no-op on modern devices)
 buildUI();
 setSoundEnabled(game.state.settings.sound);
 

@@ -7,7 +7,7 @@
 
 @media (max-width: 960px), (max-height: 620px) and (max-width: 1100px) {
   body { overflow: auto; }
-  #app { height: auto; min-height: 100dvh; grid-template-rows: auto auto auto; }
+  #app { height: auto; min-height: 100vh; min-height: 100dvh; grid-template-rows: auto auto auto; }
   .hud { flex-wrap: wrap; justify-content: space-between; }
   .stats { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
   .layout { grid-template-columns: 1fr; padding: 0 8px calc(var(--toolbar-h) + 10px); }
@@ -56,11 +56,11 @@
   .sun { width: 13%; }
   .cloud { width: 22%; }
   .label { font-size: 10px; padding: 0 6px; }
-  .animal { font-size: 8cqw; }
-  .animal.cow { font-size: 9.5cqw; }
-  .plot .badges { font-size: 3.6cqw; }
-  .bee { font-size: 4cqw; }
-  .float { font-size: 4.2cqw; }
+  .animal { font-size: 28px; font-size: 8cqw; }
+  .animal.cow { font-size: 33px; font-size: 9.5cqw; }
+  .plot .badges { font-size: 13px; font-size: 3.6cqw; }
+  .bee { font-size: 14px; font-size: 4cqw; }
+  .float { font-size: 15px; font-size: 4.2cqw; }
 
   .tools { gap: 4px; padding: 5px; border-radius: 20px; }
   .tool { width: 44px; height: 52px; border-radius: 13px; }
@@ -70,7 +70,7 @@
   .seed-tray.open { height: 46px; }
 
   .modal-backdrop { padding: 8px; }
-  .modal { max-height: 94dvh; border-radius: 20px; }
+  .modal { max-height: 90vh; max-height: 94dvh; border-radius: 20px; }
   .modal-head h2 { font-size: 18px; }
   .question { font-size: 20px; }
   .answer { font-size: 16px; }

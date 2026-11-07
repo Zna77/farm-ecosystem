@@ -21,7 +21,7 @@
   --font: 'Fredoka', 'Baloo 2', 'Nunito', ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
   --hud-h: 72px;
   --toolbar-h: 132px;
-  color-scheme: light;
+  color-scheme: only light;
 }
 
 * { box-sizing: border-box; }
@@ -55,6 +55,7 @@ h1, h2, h3, h4, p { margin: 0; }
 #app {
   display: grid;
   grid-template-rows: var(--hud-h) 1fr auto;
+  height: 100vh; /* fallback for browsers without dvh (Chrome < 108) */
   height: 100dvh;
   max-width: 1500px;
   margin: 0 auto;

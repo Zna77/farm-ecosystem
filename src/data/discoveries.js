@@ -91,4 +91,6 @@ export const DISCOVERIES = [
 for (const [id, node] of Object.entries(WEB_NODES)) Object.defineProperty(node, 'label', { get: () => t(`nodes.${id}`), enumerable: true });
 DISCOVERIES.forEach((d) => localize(d, `discoveries.${d.id}`, ['title', 'text']));
 
-export const DISCOVERY_MAP = Object.fromEntries(DISCOVERIES.map((d) => [d.id, d]));
+// (A plain loop instead of Object.fromEntries, which older Android browsers lack.)
+export const DISCOVERY_MAP = {};
+DISCOVERIES.forEach((d) => { DISCOVERY_MAP[d.id] = d; });

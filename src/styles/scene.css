@@ -10,6 +10,8 @@
 
 .scene {
   position: relative;
+  width: 100%;
+  width: min(100%, calc((100vh - var(--hud-h) - var(--toolbar-h) - 24px) * 1.6));
   width: min(100%, calc((100dvh - var(--hud-h) - var(--toolbar-h) - 24px) * 1.6));
   aspect-ratio: 16 / 10;
   border-radius: 26px;
@@ -61,8 +63,8 @@
 .moon, .stars {
   position: absolute; z-index: 1; opacity: 0; transition: opacity 2s; pointer-events: none;
 }
-.moon { right: 12%; top: 6%; font-size: 4.5cqw; filter: drop-shadow(0 0 12px #fff8); }
-.stars { left: 10%; top: 4%; width: 70%; color: #fff; font-size: 2cqw; letter-spacing: 6cqw; }
+.moon { right: 12%; top: 6%; font-size: 30px; font-size: 4.5cqw; filter: drop-shadow(0 0 12px #fff8); }
+.stars { left: 10%; top: 4%; width: 70%; color: #fff; font-size: 12px; font-size: 2cqw; letter-spacing: 30px; letter-spacing: 6cqw; }
 .scene.is-night .moon, .scene.is-night .stars { opacity: 1; }
 
 /* Clouds drift across the sky */
@@ -84,7 +86,8 @@
   border-radius: 2px;
   animation: fall linear infinite;
 }
-@keyframes fall { to { transform: translate(-30px, 120cqh); } }
+/* 2000% of a drop's own height (6% of the farm) = 120% of the farm height */
+@keyframes fall { to { transform: translate(-30px, 2000%); } }
 
 
 .night-shade {
@@ -107,7 +110,7 @@ button.obj:active { transform: scale(0.97); }
   left: 50%; bottom: -2px;
   transform: translateX(-50%);
   white-space: nowrap;
-  font-size: clamp(9px, 1.15cqw, 14px);
+  font-size: 9px; font-size: clamp(9px, 1.15cqw, 14px);
   font-weight: 600;
   background: rgba(255, 255, 255, 0.9);
   padding: 1px 8px;
@@ -124,7 +127,7 @@ button.obj:active { transform: scale(0.97); }
 .barn-count, .bin-ready {
   position: absolute; top: 4%; right: 0;
   background: var(--orange); color: #fff; font-weight: 700;
-  border-radius: 99px; padding: 2px 8px; font-size: clamp(10px, 1.2cqw, 15px);
+  border-radius: 99px; padding: 2px 8px; font-size: 10px; font-size: clamp(10px, 1.2cqw, 15px);
   box-shadow: var(--shadow-sm); transform: scale(0); transition: transform .3s cubic-bezier(.2,1.6,.5,1);
 }
 .barn-count.show, .bin-ready.show { transform: scale(1); animation: bob 1.6s ease-in-out infinite; }
@@ -138,13 +141,13 @@ button.obj:active { transform: scale(0.97); }
   position: absolute;
   bottom: 0;
   left: calc(4% + var(--i) * 17%);
-  font-size: clamp(18px, 3.4cqw, 48px);
+  font-size: 20px; font-size: clamp(18px, 3.4cqw, 48px);
   line-height: 1;
   animation: walk 9s ease-in-out infinite;
   animation-delay: calc(var(--i) * -2.3s);
   filter: drop-shadow(0 3px 0 rgba(0, 0, 0, .15));
 }
-.animal.cow { font-size: clamp(22px, 4.2cqw, 58px); }
+.animal.cow { font-size: 25px; font-size: clamp(22px, 4.2cqw, 58px); }
 .animal .body { display: inline-block; animation: bob 1.2s ease-in-out infinite; }
 .animal .bubble {
   position: absolute; left: 50%; bottom: 95%; transform: translateX(-50%);
@@ -168,7 +171,7 @@ button.obj:active { transform: scale(0.97); }
 .hive:hover { transform: scale(1.06); }
 .hive-slot {
   border: 2px dashed rgba(255, 255, 255, .85); border-radius: 50% 50% 12px 12px;
-  font-size: clamp(9px, 1.3cqw, 16px); color: #fff; font-weight: 700; text-shadow: 0 1px 2px #0005;
+  font-size: 9px; font-size: clamp(9px, 1.3cqw, 16px); color: #fff; font-weight: 700; text-shadow: 0 1px 2px #0005;
   background: rgba(255, 255, 255, .15);
 }
 .hive-slot:hover { background: rgba(255, 255, 255, .35); }
@@ -210,7 +213,8 @@ button.obj:active { transform: scale(0.97); }
 .plot .soil {
   position: absolute; inset: 0;
   border-radius: inherit;
-  background: color-mix(in srgb, #5a3a27 calc(var(--fert) * 1%), #d9b98a);
+  /* --soil is computed in scene.js (rich dark brown ↔ pale tired soil); no color-mix() needed */
+  background: var(--soil, #8a6a4c);
   box-shadow: inset 0 -5px 0 rgba(0, 0, 0, .18), 0 3px 0 rgba(0, 0, 0, .18);
   overflow: hidden;
 }
@@ -228,12 +232,12 @@ button.obj:active { transform: scale(0.97); }
 .plot.locked .soil { filter: grayscale(.8) brightness(1.1); opacity: .65; }
 .plot .lock {
   position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
-  font-size: clamp(14px, 2.4cqw, 30px);
+  font-size: 14px; font-size: clamp(14px, 2.4cqw, 30px);
 }
 .plot .lock small { display: block; font-size: .45em; font-weight: 600; color: #fff; text-shadow: 0 1px 2px #0008; }
 .plot .empty-hint {
   position: absolute; inset: 0; display: grid; place-content: center;
-  font-size: clamp(14px, 2.6cqw, 34px); color: rgba(255, 255, 255, .45); font-weight: 700;
+  font-size: 16px; font-size: clamp(14px, 2.6cqw, 34px); color: rgba(255, 255, 255, .45); font-weight: 700;
   transition: color .2s;
 }
 .plot:hover .empty-hint { color: rgba(255, 255, 255, .9); }
@@ -247,7 +251,7 @@ button.obj:active { transform: scale(0.97); }
 .plot .badges {
   position: absolute; top: -8%; right: -6%;
   display: flex; gap: 2px;
-  font-size: clamp(10px, 1.7cqw, 22px);
+  font-size: 10px; font-size: clamp(10px, 1.7cqw, 22px);
   pointer-events: none;
 }
 .plot .badges span { background: #fff; border-radius: 50%; width: 1.5em; height: 1.5em; display: grid; place-content: center; box-shadow: var(--shadow-sm); animation: bob 1.4s ease-in-out infinite; }
@@ -269,7 +273,7 @@ button.obj:active { transform: scale(0.97); }
 .aphids i:nth-child(3) { left: 40%; top: 55%; animation-delay: -2s; }
 .aphids i:nth-child(4) { left: 75%; top: 50%; animation-delay: -.5s; }
 .aphids i:nth-child(5) { left: 10%; top: 65%; animation-delay: -1.5s; }
-.aphids .hunter { position: absolute; left: 45%; top: 25%; font-size: clamp(10px, 1.6cqw, 20px); animation: hunt 2.4s ease-in-out infinite; }
+.aphids .hunter { position: absolute; left: 45%; top: 25%; font-size: 10px; font-size: clamp(10px, 1.6cqw, 20px); animation: hunt 2.4s ease-in-out infinite; }
 @keyframes crawl { 50% { transform: translate(4px, -3px); } }
 @keyframes hunt { 0%, 100% { transform: translate(-30%, 0) rotate(-20deg); } 50% { transform: translate(60%, 40%) rotate(30deg); } }
 
@@ -289,7 +293,7 @@ button.obj:active { transform: scale(0.97); }
 .bees { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
 .bee {
   position: absolute; left: 85%; top: 40%;
-  font-size: clamp(10px, 1.7cqw, 22px);
+  font-size: 10px; font-size: clamp(10px, 1.7cqw, 22px);
   transition: left 2.1s ease-in-out, top 2.1s ease-in-out, opacity 1s;
   transform: translate(-50%, -50%);
   animation: buzz .3s ease-in-out infinite alternate;
@@ -297,11 +301,11 @@ button.obj:active { transform: scale(0.97); }
 .bees.home .bee { opacity: 0; }
 @keyframes buzz { to { margin-top: -3px; } }
 .butterflies { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
-.bfly { position: absolute; font-size: clamp(10px, 1.8cqw, 22px); animation: flutter 18s ease-in-out infinite; }
+.bfly { position: absolute; font-size: 11px; font-size: clamp(10px, 1.8cqw, 22px); animation: flutter 18s ease-in-out infinite; }
 .bfly.b1 { left: 30%; top: 30%; }
 .bfly.b2 { left: 60%; top: 36%; animation-delay: -9s; animation-duration: 23s; }
 .scene.is-night .bfly, .scene[data-weather='rainy'] .bfly { opacity: 0; }
-@keyframes flutter { 0%, 100% { transform: translate(0, 0) rotate(-10deg); } 25% { transform: translate(14cqw, -6cqh) rotate(10deg); } 50% { transform: translate(5cqw, 8cqh) rotate(-5deg); } 75% { transform: translate(-10cqw, 2cqh) rotate(12deg); } }
+@keyframes flutter { 0%, 100% { transform: translate(0, 0) rotate(-10deg); } 25% { transform: translate(9vw, -4vh) rotate(10deg); } 50% { transform: translate(3vw, 5vh) rotate(-5deg); } 75% { transform: translate(-6vw, 1vh) rotate(12deg); } }
 
 /* Floating feedback text */
 .floats { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
@@ -310,7 +314,7 @@ button.obj:active { transform: scale(0.97); }
   transform: translateX(-50%);
   white-space: nowrap;
   font-weight: 700;
-  font-size: clamp(12px, 1.7cqw, 22px);
+  font-size: 12px; font-size: clamp(12px, 1.7cqw, 22px);
   color: #fff;
   text-shadow: 0 2px 0 rgba(0, 0, 0, .35), 0 0 6px rgba(0, 0, 0, .3);
   animation: floatUp 1.6s ease-out forwards;
@@ -320,3 +324,22 @@ button.obj:active { transform: scale(0.97); }
 .scene[data-active-tool='water'] .plot { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E") 8 8, pointer; }
 .scene[data-active-tool='harvest'] .plot { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%A7%BA%3C/text%3E%3C/svg%3E") 8 8, pointer; }
 .scene[data-active-tool='plant'] .plot { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E") 8 8, pointer; }
+
+/* ── Older browsers without aspect-ratio (Chrome < 88, old Android WebView) ──
+   The farm's children are all absolutely positioned, so the classic
+   "padding-top" trick gives the scene its height. Without this the farm
+   map would collapse to zero height and disappear. */
+@supports not (aspect-ratio: 1 / 1) {
+  .scene { height: 0; padding-top: 62.5%; }              /* 16:10 */
+  .sun { height: 0; padding-top: 8%; }
+  .hive, .hive-slot { min-height: 40px; }
+  .aphids i { height: 0; padding-top: 9%; }
+  .fx::before, .fx::after { height: 0; padding-top: 14%; }
+  .web-wrap { height: 0; padding-top: 75%; }
+}
+@media (max-width: 640px) {
+  @supports not (aspect-ratio: 1 / 1) {
+    .scene { padding-top: 125%; }                          /* 4:5 portrait */
+    .sun { padding-top: 13%; }
+  }
+}

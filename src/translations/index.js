@@ -11,6 +11,7 @@
 import en from './en.js';
 import fr from './fr.js';
 import ar from './ar.js';
+import { root, safeStorage } from '../platform.js';
 
 export const LANG_KEY = 'farm-ecosystem-lang';
 export const DEFAULT_LANG = 'en';
@@ -27,7 +28,7 @@ const listeners = new Set();
 
 function readSavedLanguage() {
   try {
-    const saved = globalThis.localStorage?.getItem(LANG_KEY);
+    const saved = safeStorage()?.getItem(LANG_KEY);
     return DICTIONARIES[saved] ? saved : DEFAULT_LANG;
   } catch {
     return DEFAULT_LANG;
@@ -38,6 +39,16 @@ let current = readSavedLanguage();
 
 const lookup = (dict, key) => key.split('.').reduce((obj, part) => (obj == null ? undefined : obj[part]), dict);
 
+/** Plural category for a number. Very old browsers lack Intl.PluralRules, so fall back to simple rules. */
+function pluralRule(n) {
+  try {
+    if (root.Intl && Intl.PluralRules) return new Intl.PluralRules(current).select(n);
+  } catch { /* fall through */ }
+  if (current === 'ar') return n === 0 ? 'zero' : n === 1 ? 'one' : n === 2 ? 'two' : n % 100 >= 3 && n % 100 <= 10 ? 'few' : n % 100 >= 11 ? 'many' : 'other';
+  if (current === 'fr') return n < 2 ? 'one' : 'other';
+  return n === 1 ? 'one' : 'other';
+}
+
 /** Is this value a plural table like { one: '…', other: '…' }? */
 const isPlural = (v) => v && typeof v === 'object' && !Array.isArray(v) && typeof v.other === 'string';
 
@@ -46,12 +57,11 @@ export function t(key, params = {}) {
   let value = lookup(DICTIONARIES[current], key);
   if (value === undefined) value = lookup(en, key);
   if (value === undefined) {
-    if (globalThis.console) console.warn(`[i18n] Missing translation: ${key}`);
+    if (root.console) console.warn(`[i18n] Missing translation: ${key}`);
     return key;
   }
   if (isPlural(value)) {
-    const rule = new Intl.PluralRules(current).select(Number(params.count ?? 0));
-    value = value[rule] ?? value.other;
+    value = value[pluralRule(Number(params.count ?? 0))] ?? value.other;
   }
   if (typeof value === 'string') {
     return value.replace(/\{(\w+)\}/g, (match, name) => (params[name] !== undefined ? params[name] : match));
@@ -65,7 +75,7 @@ export const isRTL = () => getLanguageInfo().dir === 'rtl';
 
 /** Set <html lang> and <html dir> so the browser lays the page out correctly. */
 export function applyDocumentLanguage() {
-  const doc = globalThis.document;
+  const doc = root.document;
   if (!doc) return;
   const info = getLanguageInfo();
   doc.documentElement.lang = info.code;
@@ -76,7 +86,7 @@ export function applyDocumentLanguage() {
 export function setLanguage(code) {
   if (!DICTIONARIES[code] || code === current) return false;
   current = code;
-  try { globalThis.localStorage?.setItem(LANG_KEY, code); } catch { /* storage blocked */ }
+  try { safeStorage()?.setItem(LANG_KEY, code); } catch { /* storage blocked */ }
   applyDocumentLanguage();
   listeners.forEach((fn) => fn(code));
   return true;

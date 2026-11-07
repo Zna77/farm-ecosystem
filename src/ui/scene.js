@@ -82,6 +82,15 @@ function updateSky(state) {
   $('.night-shade', scene).style.opacity = dark.toFixed(2);
 }
 
+/** Blend pale tired soil (#d9b98a) into rich dark soil (#5a3a27) by fertility 0-100. */
+function soilColor(fertility) {
+  const f = Math.max(0, Math.min(100, fertility)) / 100;
+  const poor = [0xd9, 0xb9, 0x8a];
+  const rich = [0x5a, 0x3a, 0x27];
+  const [r, g, b] = poor.map((c, i) => Math.round(c + (rich[i] - c) * f));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 // ── Plots ────────────────────────────────────────────────────
 function plotStatus(plot) {
   if (!plot.crop) return [];
@@ -105,6 +114,7 @@ function renderPlot(btn, plot, state, game) {
 
   // Always update the cheap things (bars + soil colour)
   btn.style.setProperty('--fert', plot.fertility.toFixed(0));
+  btn.style.setProperty('--soil', soilColor(plot.fertility));
   btn.style.setProperty('--wet', (plot.water / 100).toFixed(2));
   btn.classList.toggle('selected', game.selected === plot.id);
   btn.classList.toggle('locked', !unlocked);

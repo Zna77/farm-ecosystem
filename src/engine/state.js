@@ -5,6 +5,7 @@
 import {
   SAVE_KEY, SAVE_VERSION, PLOT_COUNT, START_COINS, START_WATER, START_FERTILITY,
 } from '../config.js';
+import { safeStorage } from '../platform.js';
 
 export function createPlot(id) {
   return {
@@ -68,7 +69,7 @@ function mergeDefaults(saved) {
   return merged;
 }
 
-export function loadState(storage = globalThis.localStorage) {
+export function loadState(storage = safeStorage()) {
   try {
     const raw = storage?.getItem(SAVE_KEY);
     if (!raw) return createState();
@@ -79,15 +80,16 @@ export function loadState(storage = globalThis.localStorage) {
   }
 }
 
-export function saveState(state, storage = globalThis.localStorage) {
+export function saveState(state, storage = safeStorage()) {
+  if (!storage) return false; // no storage available (e.g. blocked in an in-app browser)
   try {
-    storage?.setItem(SAVE_KEY, JSON.stringify(state));
+    storage.setItem(SAVE_KEY, JSON.stringify(state));
     return true;
   } catch {
     return false; // private mode or storage full – the game still works
   }
 }
 
-export function clearSave(storage = globalThis.localStorage) {
+export function clearSave(storage = safeStorage()) {
   try { storage?.removeItem(SAVE_KEY); } catch { /* ignore */ }
 }

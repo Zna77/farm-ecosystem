@@ -4,7 +4,7 @@
 .lang-picker { position: relative; }
 .lang-toggle em { max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lang-menu {
-  position: absolute; top: calc(100% + 6px); inset-inline-end: 0; z-index: 45;
+  position: absolute; top: calc(100% + 6px); right: 0; z-index: 45;
   display: flex; flex-direction: column; gap: 4px; min-width: 150px;
   padding: 6px; border-radius: 16px; background: #fff; box-shadow: var(--shadow);
   border: 2px solid var(--line);
@@ -50,7 +50,8 @@
   left: auto; right: -10px;
   border-right-color: transparent; border-left: 8px solid var(--line); border-right-width: 0;
 }
-[dir='rtl'] .speech { padding-inline: 12px 34px; }
+[dir='rtl'] .speech { padding-left: 34px; padding-right: 12px; }
+[dir='rtl'] .lang-menu { right: auto; left: 0; }
 [dir='rtl'] .speech-next { right: auto; left: 6px; transform: scaleX(-1); }
 [dir='rtl'] .menu-btn .dot { right: auto; left: 6px; }
 [dir='rtl'] .tool .t-badge:not(:empty) { right: auto; left: -6px; }
